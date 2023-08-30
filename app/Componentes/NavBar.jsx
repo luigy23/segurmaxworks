@@ -13,11 +13,11 @@ const NavBar = () => {
         </Link>
       </NavbarItem>
       <NavbarItem>
-        <Button color='primary'>
+        
         <Link href='/new' className='hover:text-slate-200'>
           Nuevo
         </Link>
-        </Button>
+        
         </NavbarItem>
 
     </NavbarContent>
