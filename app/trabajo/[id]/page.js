@@ -3,6 +3,8 @@ import NavBar from '@/app/Componentes/NavBar';
 import { obtenerTrabajo } from '@/app/utils/supabase';
 import { Card, CardBody, CardFooter, CardHeader, Chip, Divider } from '@nextui-org/react';
 import React from 'react'
+import segurmaxLogo from '@/public/logoSegurmax.svg'
+import Image from 'next/image';
 
 const TraerTrabajo = (id) => {
     return obtenerTrabajo(id).then((res) => {
@@ -24,8 +26,10 @@ const Trabajo = async ({ params }) => {
     return (
         <>
             
-            <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark">
-
+            <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark gap-4">
+                {/* logo: */}
+                <Image src={segurmaxLogo} alt="Segurmax Logo" width={250} height={250} />
+                <h1 className='text-xl mb-5'>Detalles de su Servicio</h1>
                 <Card className='w-[80%]'>
                     <CardHeader className="justify-between">
                         <div className='flex gap-1 justify-between items-center'>
@@ -52,6 +56,8 @@ const Trabajo = async ({ params }) => {
                         </div>
                     </CardFooter>
                 </Card>
+
+                
             </main>
         </>
     )
