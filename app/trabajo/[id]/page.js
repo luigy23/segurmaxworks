@@ -23,8 +23,8 @@ const Trabajo = async ({ params }) => {
 
     return (
         <>
-            <NavBar />
-            <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
+            
+            <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark">
 
                 <Card className='w-[80%]'>
                     <CardHeader className="justify-between">
