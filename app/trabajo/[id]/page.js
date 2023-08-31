@@ -2,7 +2,7 @@
 import NavBar from '@/app/Componentes/NavBar';
 import { obtenerTrabajo } from '@/app/utils/supabase';
 import { Card, CardBody, CardFooter, CardHeader, Chip, Divider } from '@nextui-org/react';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import segurmaxLogo from '@/public/logoSegurmax.svg'
 import Image from 'next/image';
 
@@ -15,10 +15,17 @@ const TraerTrabajo = (id) => {
 }
 
 
-const Trabajo = async ({ params }) => {
+const Trabajo =  ({ params }) => {
 
+    const [trabajo, setTrabajo] = useState({})
+    
     const { id } = params;
-    const trabajo = await TraerTrabajo(id)
+    useEffect(() => {
+        TraerTrabajo(id).then((res) => {
+            setTrabajo(res)
+        })
+    }
+        , [])
 
 
 
@@ -57,7 +64,7 @@ const Trabajo = async ({ params }) => {
                     </CardFooter>
                 </Card>
 
-                
+
             </main>
         </>
     )
