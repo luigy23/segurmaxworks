@@ -1,0 +1,60 @@
+"use client"
+import NavBar from '@/app/Componentes/NavBar';
+import { obtenerTrabajo } from '@/app/utils/supabase';
+import { Card, CardBody, CardFooter, CardHeader, Chip, Divider } from '@nextui-org/react';
+import React from 'react'
+
+const TraerTrabajo = (id) => {
+    return obtenerTrabajo(id).then((res) => {
+        console.log(res)
+        return res[0]
+    })
+
+}
+
+
+const Trabajo = async ({ params }) => {
+
+    const { id } = params;
+    const trabajo = await TraerTrabajo(id)
+
+
+
+
+    return (
+        <>
+            <NavBar />
+            <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
+
+                <Card className='w-[80%]'>
+                    <CardHeader className="justify-between">
+                        <div className='flex gap-1 justify-between items-center'>
+                            <p><span className='text-shamrock-400 '>Trabajador: </span> {trabajo.Trabajador}</p>
+                        </div>
+                        {/* Fecha Formateada dd/mm/aaaa */}
+                        <Chip color='success' size='small' className='text-sm'>
+                            {new Date(trabajo.Fecha).toLocaleDateString()}
+                        </Chip>
+
+                    </CardHeader>
+                    <Divider />
+                    <CardBody><span className='text-shamrock-400'>Descripcion: </span> {trabajo.Descripcion}</CardBody>
+                    <Divider />
+                    <CardFooter >
+                        <div className='flex flex-col gap-1'>
+                            <p className='text-sm'>Precio:</p>
+                        <Chip color='success' variant='flat'
+                        
+                        >
+                         $ {trabajo.Precio}
+                        
+                        </Chip>
+                        </div>
+                    </CardFooter>
+                </Card>
+            </main>
+        </>
+    )
+}
+
+export default Trabajo

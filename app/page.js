@@ -2,100 +2,114 @@
 
 import { Button } from '@nextui-org/react'
 import { insertarTrabajo, obtenerTrabajos } from './utils/supabase'
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import NavBar from './Componentes/NavBar';
+import Link from 'next/link';
 
 
-export default function Home() {
 
-  const [data, setData] = useState([])
 
-  const datos = {
-    Descripcion: 'Pintar paredes',
-    Trabajador: 'Juan',
-    Fecha: '2021-06-01',
-    Precio: 1000
+const TraerTrabajos =  () => {
+  return obtenerTrabajos('Trabajos').then((res) => {
+      console.log(res)
+      return res
+  }
+  
+    )
+
+
 }
 
-useEffect(() => {
-  obtenerTrabajos('Trabajos').then((res) => {
-    console.log(res)
-    setData(res)
-  })
+export default  function Home() {
+
+  const [trabajos, setTrabajos] = useState([])
 
 
-}, [])
-
-
-
-
-  const handleclick = () => {
-    console.log('click')
-    obtenerTrabajos('Trabajos').then((res) => {
-      console.log(res)
-      setData(res)
-    }
-    )
+  useEffect(() => {
+    TraerTrabajos().then((res) => {
+      setTrabajos(res)
+    })
   }
+    , [])
+
+
+
+
+  // const handleclick = () => {
+  //   console.log('click')
+  //   obtenerTrabajos('Trabajos').then((res) => {
+  //     console.log(res)
+  //     setData(res)
+  //   }
+  //   )
+  // }
 
   // const handleInsert = () => {
   //   console.log('insert')
   //   insertarTrabajo('Trabajos', datos).then((res) => {
   //     console.log(res)
-    
+
   //   }
-    
+
   //   )
   // }
 
   return (
     <>
-    <NavBar/>
+      <NavBar />
 
-    <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark">
-      <h1 className='text-3xl font-semibold'>Hola</h1>
-      <Button 
-      onClick={handleclick}
-      variant='faded' color='success'>Cargar Datos</Button>
-      {/* <Button 
-      onClick={handleInsert}
-      variant='flat' color='error'>Insertar Dato</Button> */}
-
-<div className="w-5/6">
-<Table aria-label="Example static collection table"
-selectionMode='single'
-color='success'
+      <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark">
+        <h1 className='text-3xl font-semibold'>Hola</h1>
 
 
->
-      <TableHeader>
-        <TableColumn>Id</TableColumn>
-        <TableColumn>Descripcion</TableColumn>
-        <TableColumn>Trabajador</TableColumn>
-        <TableColumn>Fecha</TableColumn>
-        <TableColumn>Precio</TableColumn>
-      </TableHeader>
-      <TableBody items={data}>
-      {
-        (item, index) => {
-          return (
-            <TableRow key={index}>
-              <TableCell>{item.id}</TableCell>
-              <TableCell>{item.Descripcion}</TableCell>
-              <TableCell>{item.Trabajador}</TableCell>
-              <TableCell>{item.Fecha}</TableCell>
-              <TableCell>{item.Precio}</TableCell>
-            </TableRow>
-          )
-        }
-      }
-      </TableBody>
-    </Table>
-    </div>
+
+        <div className="w-5/6">
+          <Table aria-label="Example static collection table"
+            selectionMode='single'
+            color='success'
 
 
-    </main>
+
+          >
+            <TableHeader>
+              <TableColumn>Id</TableColumn>
+              <TableColumn>Descripcion</TableColumn>
+              <TableColumn>Trabajador</TableColumn>
+              <TableColumn>Fecha</TableColumn>
+              <TableColumn>Precio</TableColumn>
+              <TableColumn></TableColumn>
+            </TableHeader>
+            <TableBody items={trabajos}
+              isLoading={trabajos.length === 0}
+              loadingContent={<TableRow >
+                Holaaaa</TableRow>}
+            >
+
+              {
+                (item, index) => {
+                  return (
+                    
+                    <TableRow  as={<Link href="/trabajo"/>} >
+                     
+                      <TableCell >{item.id}</TableCell>
+                      <TableCell>{item.Descripcion}</TableCell>
+                      <TableCell>{item.Trabajador}</TableCell>
+                      <TableCell>{item.Fecha}</TableCell>
+                      <TableCell>{item.Precio}</TableCell>
+                      <TableCell><Link href={"trabajo/"+item.id}> Ver</Link></TableCell>
+                  
+                    </TableRow>
+                   
+                  )
+                }
+              }
+            </TableBody>
+          </Table>
+        </div>
+        {/* mostramos el seleccionado: */}
+
+      </main>
     </>
   )
 }
