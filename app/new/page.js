@@ -29,7 +29,14 @@ const handleSubmit = (event) => {
         return
     }
     //Si todos los campos estan llenos, se envia el formulario
-    insertarTrabajo('Trabajos', formulario).then((res) => {
+    //antes agregamos al objeto formulario atributo Estado = 0;
+    const formularioConEstado = {
+        ...formulario,
+        Estado: 0
+    }
+ 
+  
+    insertarTrabajo('Trabajos', formularioConEstado).then((res) => {
         console.log(res)
         toast.success('Trabajo agregado')
     }).catch((err) => {

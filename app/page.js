@@ -78,6 +78,7 @@ export default  function Home() {
               <TableColumn>Trabajador</TableColumn>
               <TableColumn>Fecha</TableColumn>
               <TableColumn>Precio</TableColumn>
+              <TableColumn>Estado</TableColumn>
               <TableColumn></TableColumn>
             </TableHeader>
             <TableBody items={trabajos}
@@ -97,6 +98,7 @@ export default  function Home() {
                       <TableCell>{item.Trabajador}</TableCell>
                       <TableCell>{item.Fecha}</TableCell>
                       <TableCell>{item.Precio}</TableCell>
+                      <TableCell>{item.Estado}</TableCell>
                       <TableCell><Link href={"trabajo/"+item.id}> Ver</Link></TableCell>
                   
                     </TableRow>
