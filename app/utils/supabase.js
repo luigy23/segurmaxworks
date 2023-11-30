@@ -1,16 +1,20 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://feavfggordzbhzdeldgq.supabase.co'
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlYXZmZ2dvcmR6Ymh6ZGVsZGdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTMyNDAyMzMsImV4cCI6MjAwODgxNjIzM30.PWSxZwG020JPYkGoIpRF-naBvP6Ks6ecgHuZQYRANbk"
-const supabase = createClient(supabaseUrl, supabaseKey
+const supabaseUrl = 'https://fydlptytoyvcybdtonjn.supabase.co'
+const anonkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5ZGxwdHl0b3l2Y3liZHRvbmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjUxNzIsImV4cCI6MjAxNjk0MTE3Mn0.1O5h_qN_ggN_K_dFc7gIZLckPUPP3fHFh2eIDzSqt0E"
+const supabase = createClient(supabaseUrl, anonkey
     
     )
 
 export const obtenerTrabajos = async (tabla) => {
     const { data, error } = await supabase
-        .from(tabla)
+        .from('Trabajos')
         .select('*')
-    if (error) return <div>error</div>
+        
+    if (error){ 
+        console.log(error)
+        return []
+    }
     console.log(data)
     return data
     }

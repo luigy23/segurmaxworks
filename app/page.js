@@ -81,7 +81,9 @@ export default  function Home() {
               <TableColumn>Estado</TableColumn>
               <TableColumn></TableColumn>
             </TableHeader>
-            <TableBody items={trabajos}
+            <TableBody //items={trabajos} pero para que no de error cuando no hay datos sería así: items={trabajos || []}
+              items={trabajos || []}
+              emptyContent={"No hay datos"}
               isLoading={trabajos.length === 0}
               loadingContent={<TableRow >
                 Holaaaa</TableRow>}
