@@ -96,7 +96,7 @@ export default  function Home() {
                       <TableCell >{item.id}</TableCell>
                       <TableCell>{item.Descripcion}</TableCell>
                       <TableCell>{item.Trabajador}</TableCell>
-                      <TableCell>{item.Fecha}</TableCell>
+                      <TableCell>{new Date(item.Fecha).toLocaleTimeString }</TableCell>
                       <TableCell>{item.Precio}</TableCell>
                       <TableCell>{item.Estado}</TableCell>
                       <TableCell><Link href={"trabajo/"+item.id}> Ver</Link></TableCell>
