@@ -20,6 +20,11 @@ const NavBar = () => {
         </Link>
         
         </NavbarItem>
+      <NavbarItem>
+        <Link href='/agenda' className='hover:text-slate-200'>
+          Agenda
+        </Link>
+      </NavbarItem>
 
     </NavbarContent>
   </Navbar>

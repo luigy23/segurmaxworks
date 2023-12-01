@@ -4,19 +4,35 @@ import NavBar from '../Componentes/NavBar'
 import { Button, Input, Textarea } from '@nextui-org/react'
 import { insertarTrabajo } from '../utils/supabase'
 import toast, { Toaster } from 'react-hot-toast';
+import { formatearPrecio } from '../utils/Formateadores'
 
 const New = () => {
 
 
     const [formulario, setFormulario] = useState({})
+    const [json, setJson] = useState({})
 
     const handleInputChange = (event) => {
-
-
         setFormulario({
             ...formulario,
             [event.target.name]: event.target.value
         })
+
+        //si el nombre del input es precio, formateamos el precio
+        if (event.target.name === 'Precio') {
+            setJson({
+                ...formulario,
+                [event.target.name]: formatearPrecio(event.target.value)
+            })
+            return
+        }
+        //si no, dejamos el valor como viene
+        setJson({
+            ...formulario,
+            [event.target.name]: event.target.value
+        })
+
+
     }
 
 
@@ -36,7 +52,7 @@ const handleSubmit = (event) => {
     }
  
   
-    insertarTrabajo('Trabajos', formularioConEstado).then((res) => {
+    insertarTrabajo(formularioConEstado).then((res) => {
         console.log(res)
         toast.success('Trabajo agregado')
     }).catch((err) => {
@@ -85,9 +101,17 @@ const handleSubmit = (event) => {
         <Button variant='shadow' type='submit' color='danger'>Guardar</Button>
      </form>
 
-     {/* aqui mostramos el objeto */}
+     {/* aqui mostramos el objeto */
+     
+
+     }
         <pre className='w-[80%] whitespace-pre-wrap flex flex-col flex-wrap overflow-hidden'>
-            {JSON.stringify(formulario, null, 2)}
+            {
+                JSON.stringify(json, null, 2)
+                //remplazamos precio por el precio formateado
+                
+            }
+            
         </pre>
 
 

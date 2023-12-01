@@ -1,19 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://fydlptytoyvcybdtonjn.supabase.co'
-const anonkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5ZGxwdHl0b3l2Y3liZHRvbmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjUxNzIsImV4cCI6MjAxNjk0MTE3Mn0.1O5h_qN_ggN_K_dFc7gIZLckPUPP3fHFh2eIDzSqt0E"
+const anonkey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5ZGxwdHl0b3l2Y3liZHRvbmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjUxNzIsImV4cCI6MjAxNjk0MTE3Mn0.1O5h_qN_ggN_K_dFc7gIZLckPUPP3fHFh2eIDzSqt0E'
 const supabase = createClient(supabaseUrl, anonkey
     
     )
 
-export const obtenerTrabajos = async (tabla) => {
+export const obtenerTrabajos = async () => {
     const { data, error } = await supabase
-        .from('Trabajos')
+        .from("Trabajos")
         .select('*')
         
     if (error){ 
-        console.log(error)
-        return []
+        throw error
     }
     console.log(data)
     return data
@@ -29,15 +28,19 @@ export const obtenerTrabajos = async (tabla) => {
 //   </TableRow>
 
 
-export const insertarTrabajo = async (tabla, datos) => {
+export const insertarTrabajo = async (datos) => {
+    console.log(datos)
     const { data, error } = await supabase
-        .from(tabla)
+        .from("Trabajos")
         .insert(datos)
-    if (error) return <div>error 
-    {console.log(error)}
+    if (error) {
+        console.log(error)
+        throw error
+    }
+
 
         
-    </div>
+
     console.log(data)
     return data
 }
@@ -48,6 +51,29 @@ export const obtenerTrabajo = async (id) =>{
     .select('*')
     .eq('id', id)
     if (error) return <div>error</div>
+    console.log(data)
+    return data
+
+}
+
+export const traerTrabajosporFecha = async (fecha) =>{
+    console.log(fecha)
+    
+    const fechaHoraInicio = new Date(fecha)
+    fechaHoraInicio.setHours(0,0,0,0)
+
+
+
+    const {data, error} = await supabase
+    .from('Trabajos')
+    .select('*')
+    .gte('Fecha', fechaHoraInicio.toISOString())
+
+
+    if (error){
+        console.log(error)
+        throw error
+    }
     console.log(data)
     return data
 

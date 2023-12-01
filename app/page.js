@@ -2,24 +2,16 @@
 
 import { Button } from '@nextui-org/react'
 import { insertarTrabajo, obtenerTrabajos } from './utils/supabase'
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
+import { formatearFecha } from './utils/Formateadores';
 import NavBar from './Componentes/NavBar';
 import Link from 'next/link';
 
 
 
 
-const TraerTrabajos =  () => {
-  return obtenerTrabajos('Trabajos').then((res) => {
-      console.log(res)
-      return res
-  }
-  
-    )
 
-
-}
 
 export default  function Home() {
 
@@ -27,33 +19,17 @@ export default  function Home() {
 
 
   useEffect(() => {
-    TraerTrabajos().then((res) => {
+    obtenerTrabajos('Trabajos').then((res) => {
+      console.log(res)
       setTrabajos(res)
-    })
+    }
+    )
   }
     , [])
 
 
 
 
-  // const handleclick = () => {
-  //   console.log('click')
-  //   obtenerTrabajos('Trabajos').then((res) => {
-  //     console.log(res)
-  //     setData(res)
-  //   }
-  //   )
-  // }
-
-  // const handleInsert = () => {
-  //   console.log('insert')
-  //   insertarTrabajo('Trabajos', datos).then((res) => {
-  //     console.log(res)
-
-  //   }
-
-  //   )
-  // }
 
   return (
     <>
@@ -98,9 +74,9 @@ export default  function Home() {
                       <TableCell >{item.id}</TableCell>
                       <TableCell>{item.Descripcion}</TableCell>
                       <TableCell>{item.Trabajador}</TableCell>
-                      <TableCell>{new Date(item.Fecha).toLocaleTimeString }</TableCell>
+                      <TableCell>{formatearFecha(item.Fecha)}</TableCell>
                       <TableCell>{item.Precio}</TableCell>
-                      <TableCell>{item.Estado}</TableCell>
+                      <TableCell>{chips[item.Estado]}</TableCell>
                       <TableCell><Link href={"trabajo/"+item.id}> Ver</Link></TableCell>
                   
                     </TableRow>
@@ -116,4 +92,10 @@ export default  function Home() {
       </main>
     </>
   )
+}
+
+export const chips = {
+ 0: <Chip color='warning'>Pendiente</Chip>,
+ 1: <Chip color='success'>Finalizado</Chip>,
+ 2: <Chip color='error'>Cancelado</Chip>
 }
