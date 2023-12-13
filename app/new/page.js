@@ -1,128 +1,149 @@
-"use client"
-import React, { useState } from 'react'
-import NavBar from '../Componentes/NavBar'
-import { Button, Input, Textarea } from '@nextui-org/react'
-import { insertarTrabajo } from '../utils/supabase'
-import toast, { Toaster } from 'react-hot-toast';
-import { formatearPrecio } from '../utils/Formateadores'
+"use client";
+import React, { useState } from "react";
+import NavBar from "../Componentes/NavBar";
+import { Button, Input, Textarea } from "@nextui-org/react";
+import { insertarTrabajo } from "../utils/supabase";
+import toast, { Toaster } from "react-hot-toast";
+import { formatearPrecio } from "../utils/Formateadores";
 
 const New = () => {
+  const [formulario, setFormulario] = useState({
+    Descripcion: "",
+    Trabajador: "",
+    Precio: "",
+    Fecha: "", // Solo la fecha
+    Hora: "", // Solo la hora
+  });
+  const [precioMostrado, setPrecioMostrado] = useState("");
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    let newValue = value;
 
-    const [formulario, setFormulario] = useState({})
-    const [json, setJson] = useState({})
-
-    const handleInputChange = (event) => {
-        setFormulario({
-            ...formulario,
-            [event.target.name]: event.target.value
-        })
-
-        //si el nombre del input es precio, formateamos el precio
-        if (event.target.name === 'Precio') {
-            setJson({
-                ...formulario,
-                [event.target.name]: formatearPrecio(event.target.value)
-            })
-            return
-        }
-        //si no, dejamos el valor como viene
-        setJson({
-            ...formulario,
-            [event.target.name]: event.target.value
-        })
-
-
-    }
-
-
-const handleSubmit = (event) => {
-    event.preventDefault()
-    //Verificamos que los campos no esten vacios
-    //si alguno está vacio, se envia una alerta, y no se envia
-    if (!formulario.Descripcion || !formulario.Trabajador  || !formulario.Precio) {
-        alert('Todos los campos son obligatorios')
-        return
-    }
-    //Si todos los campos estan llenos, se envia el formulario
-    //antes agregamos al objeto formulario atributo Estado = 0;
-    const formularioConEstado = {
+    if (name === "Precio") {
+      setFormulario({
         ...formulario,
-        Estado: 0
+        Precio: value, // Guarda el valor numérico sin formato
+      });
+      setPrecioMostrado(formatearPrecio(value)); // Actualiza el valor mostrado con formato
+      return;
     }
- 
-  
-    insertarTrabajo(formularioConEstado).then((res) => {
-        console.log(res)
-        toast.success('Trabajo agregado')
-    }).catch((err) => {
-        console.log(err)
-        toast.error('Error al agregar el trabajo')
-    })
-}
+
+    setFormulario({
+      ...formulario,
+      [name]: newValue,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Asignar fecha actual si no se proporciona
+    const datosAEnviar = {
+      ...formulario,
+      Fecha: formulario.Fecha || new Date().toISOString().split("T")[0], // Fecha actual si no se proporciona
+      Estado: 0,
+    };
+
+    try {
+      const data = await insertarTrabajo(datosAEnviar);
+      console.log(data);
+      toast.success("Trabajo agregado");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error al agregar el trabajo");
+    }
+  };
 
   return (
-
-
-
-
     <>
-        <NavBar/>
+      <NavBar />
 
-    <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
-      <h1 className='text-3xl font-semibold mb-2'>Nuevo</h1>
-      <form className='flex flex-col w-[80%] gap-2' onSubmit={handleSubmit}>
-        <Textarea value={formulario.Descripcion} onChange={handleInputChange}
-        variant='bordered' color='default' label='Descripcion' minRows={1} name='Descripcion' />
-        <Input variant='bordered' color='default' label='Trabajador' name='Trabajador'
-        value={formulario.Trabajador} onChange={handleInputChange} />
+      <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
+        <h1 className="text-3xl font-semibold mb-2">Nuevo</h1>
+        <form className="flex flex-col w-[80%] gap-2" onSubmit={handleSubmit}>
+          <Textarea
+            value={formulario.Descripcion}
+            onChange={handleInputChange}
+            variant="bordered"
+            color="default"
+            label="Descripcion"
+            minRows={1}
+            name="Descripcion"
+          />
+          <Input
+            variant="bordered"
+            color="default"
+            label="Trabajador"
+            name="Trabajador"
+            value={formulario.Trabajador}
+            onChange={handleInputChange}
+          />
 
-
-
-         <Input
-          type="number"
-          label="Precio"
-          placeholder="0.00"
-          variant='bordered'
-          name='Precio'
-          value={formulario.Precio}
-          onChange={handleInputChange}
-          color='success'
-
-          startContent={
-            <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">$</span>
-            </div>
+          <Input
+            type="number"
+            label="Precio"
+            placeholder="0.00"
+            variant="bordered"
+            name="Precio"
+            value={formulario.Precio} // Muestra el valor con formato
+            onChange={handleInputChange}
+            color="success"
+            startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">$</span>
+              </div>
             }
-            />
 
+          />
+            <span className="text-success-600">
+                {precioMostrado}
+            </span>
+          <div className="flex gap-4 items-center">
+            <label htmlFor="fecha" className="flex flex-col">
+              Fecha
+              <input
+                type="date"
+                name="Fecha"
+                id="fecha"
+                className="mb-4 p-3 rounded-md"
+                value={formulario.Fecha}
+                onChange={handleInputChange}
+              />
+            </label>
+            <label htmlFor="hora" className="flex flex-col">
+              Hora
+              <input
+                type="time"
+                name="Hora"
+                id="hora"
+                className="mb-4 p-3 rounded-md"
+                value={formulario.Hora}
+                onChange={handleInputChange}
+              />
+            </label>
+            <span className="text-success-600">
+              {"(vacio para usar la fecha y hora actual)"}
+            </span>
+          </div>
 
+          <Button variant="shadow" type="submit" color="danger">
+            Guardar
+          </Button>
+        </form>
 
-        <Button variant='shadow' type='submit' color='danger'>Guardar</Button>
-     </form>
-
-     {/* aqui mostramos el objeto */
-     
-
-     }
-        <pre className='w-[80%] whitespace-pre-wrap flex flex-col flex-wrap overflow-hidden'>
-            {
-                JSON.stringify(json, null, 2)
-                //remplazamos precio por el precio formateado
-                
-            }
-            
+        {/* aqui mostramos el objeto 
+        <pre className="w-[80%] whitespace-pre-wrap flex flex-col flex-wrap overflow-hidden">
+          {
+            JSON.stringify(json, null, 2)
+            //remplazamos precio por el precio formateado
+          }
         </pre>
-
-
-
-
-
+        */}
       </main>
       <Toaster />
-    
     </>
-  )
-}
+  );
+};
 
-export default New
+export default New;

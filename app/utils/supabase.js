@@ -56,28 +56,24 @@ export const obtenerTrabajo = async (id) =>{
 
 }
 
-export const traerTrabajosporFecha = async (fecha) =>{
-    console.log(fecha)
-    
-    const fechaHoraInicio = new Date(fecha)
-    fechaHoraInicio.setHours(0,0,0,0)
+export const obtenerTrabajosPorFecha = async (fecha) => {
+    // Asegurarse de que la fecha esté en el formato correcto (YYYY-MM-DD)
+    const fechaFormateada = new Date(fecha).toISOString().split('T')[0];
 
+    const { data, error } = await supabase
+        .from('Trabajos')
+        .select('*')
+        .eq('Fecha', fechaFormateada);
 
-
-    const {data, error} = await supabase
-    .from('Trabajos')
-    .select('*')
-    .gte('Fecha', fechaHoraInicio.toISOString())
-
-
-    if (error){
-        console.log(error)
-        throw error
+    if (error) {
+        console.error(error);
+        return <div>Error al obtener los trabajos para la fecha: {fechaFormateada}</div>;
     }
-    console.log(data)
-    return data
 
+    console.log(data);
+    return data;
 }
+
 
 //Actualizar trabajo (no es necesario que estén todos los campos)
 export const actualizarTrabajo = async (id, datos) =>{

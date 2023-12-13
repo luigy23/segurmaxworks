@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react'
 import { insertarTrabajo, obtenerTrabajos } from './utils/supabase'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
-import { formatearFecha } from './utils/Formateadores';
+import { formatearFecha, formatearHora } from './utils/Formateadores';
 import NavBar from './Componentes/NavBar';
 import Link from 'next/link';
 
@@ -53,6 +53,7 @@ export default  function Home() {
               <TableColumn>Descripcion</TableColumn>
               <TableColumn>Trabajador</TableColumn>
               <TableColumn>Fecha</TableColumn>
+              <TableColumn>Hora</TableColumn>
               <TableColumn>Precio</TableColumn>
               <TableColumn>Estado</TableColumn>
               <TableColumn></TableColumn>
@@ -75,6 +76,7 @@ export default  function Home() {
                       <TableCell>{item.Descripcion}</TableCell>
                       <TableCell>{item.Trabajador}</TableCell>
                       <TableCell>{formatearFecha(item.Fecha)}</TableCell>
+                      <TableCell>{formatearHora(item.Hora)}</TableCell>
                       <TableCell>{item.Precio}</TableCell>
                       <TableCell>{chips[item.Estado]}</TableCell>
                       <TableCell><Link href={"trabajo/"+item.id}> Ver</Link></TableCell>
