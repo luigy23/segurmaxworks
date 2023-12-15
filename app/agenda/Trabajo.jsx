@@ -16,7 +16,7 @@ const Trabajo = ({item, index}) => {
         {chips[item.Estado]}
     </CardBody>
     <CardFooter>{formatearFecha(item.Fecha)+" - "+ formatearHora(item.Hora)}</CardFooter>
-</Card>
+    </Card>
   )
 }
 

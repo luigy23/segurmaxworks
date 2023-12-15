@@ -9,3 +9,9 @@ h1 {
 .fullh {
   @apply flex flex-col items-center  bg-smoke-800 text-slate-50 h-screen dark;
 }
+
+.link{
+ @apply hover:text-success-500 justify-center items-center gap-2 flex
+  transition-colors ease-in-out
+ ;
+}

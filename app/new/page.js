@@ -65,7 +65,6 @@ const New = () => {
 
   return (
     <>
-      <NavBar />
 
       <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
         <h1 className="text-3xl font-semibold mb-2">Nuevo</h1>

@@ -33,10 +33,9 @@ export default  function Home() {
 
   return (
     <>
-      <NavBar />
 
       <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-screen dark">
-        <h1 className='text-3xl font-semibold'>Hola</h1>
+        
 
 
 
@@ -44,9 +43,6 @@ export default  function Home() {
           <Table aria-label="Example static collection table"
             selectionMode='single'
             color='success'
-
-
-
           >
             <TableHeader>
               <TableColumn>Id</TableColumn>
@@ -89,7 +85,7 @@ export default  function Home() {
             </TableBody>
           </Table>
         </div>
-        {/* mostramos el seleccionado: */}
+       
 
       </main>
     </>
