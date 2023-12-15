@@ -5,18 +5,21 @@ import { Button, Input, Textarea } from "@nextui-org/react";
 import { insertarTrabajo } from "../utils/supabase";
 import toast, { Toaster } from "react-hot-toast";
 import { formatearPrecio } from "../utils/Formateadores";
+import SelectTrabajadores from "../Componentes/SelectTrabajadores";
 
 const New = () => {
   const [formulario, setFormulario] = useState({
     Descripcion: "",
-    Trabajador: "",
     Precio: "",
     Fecha: "", // Solo la fecha
     Hora: "", // Solo la hora
   });
   const [precioMostrado, setPrecioMostrado] = useState("");
+  const [trabajador, setTrabajador] = useState("");
 
   const handleInputChange = (event) => {
+   
+
     const { name, value } = event.target;
     let newValue = value;
 
@@ -43,7 +46,12 @@ const New = () => {
       ...formulario,
       Fecha: formulario.Fecha || new Date().toISOString().split("T")[0], // Fecha actual si no se proporciona
       Estado: 0,
+      Trabajador: trabajador,
     };
+
+
+
+    console.log(datosAEnviar);
 
     try {
       const data = await insertarTrabajo(datosAEnviar);
@@ -71,14 +79,14 @@ const New = () => {
             minRows={1}
             name="Descripcion"
           />
-          <Input
-            variant="bordered"
-            color="default"
-            label="Trabajador"
-            name="Trabajador"
-            value={formulario.Trabajador}
-            onChange={handleInputChange}
-          />
+
+
+        <SelectTrabajadores
+        value = {trabajador}
+        setValue={setTrabajador}
+        />
+
+
 
           <Input
             type="number"

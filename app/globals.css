@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-4xl;
+}
+
+.fullh {
+  @apply flex flex-col items-center  bg-smoke-800 text-slate-50 h-screen dark;
+}

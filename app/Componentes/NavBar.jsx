@@ -25,6 +25,11 @@ const NavBar = () => {
           Agenda
         </Link>
       </NavbarItem>
+      <NavbarItem>
+        <Link href='/trabajadores' className='hover:text-slate-200'>
+          Trabajadores
+        </Link>
+        </NavbarItem>
 
     </NavbarContent>
   </Navbar>

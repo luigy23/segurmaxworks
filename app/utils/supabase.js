@@ -2,9 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://fydlptytoyvcybdtonjn.supabase.co'
 const anonkey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5ZGxwdHl0b3l2Y3liZHRvbmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjUxNzIsImV4cCI6MjAxNjk0MTE3Mn0.1O5h_qN_ggN_K_dFc7gIZLckPUPP3fHFh2eIDzSqt0E'
-const supabase = createClient(supabaseUrl, anonkey
-    
-    )
+const supabase = createClient(supabaseUrl, anonkey)
 
 export const obtenerTrabajos = async () => {
     const { data, error } = await supabase
@@ -16,18 +14,7 @@ export const obtenerTrabajos = async () => {
     }
     console.log(data)
     return data
-    }
-
-// Datos de Trabajos
-//     <TableRow key={index}>
-//     <TableCell>{item.id}</TableCell>
-//     <TableCell>{item.Descripcion}</TableCell>
-//     <TableCell>{item.Trabajador}</TableCell>
-//     <TableCell>{item.Fecha}</TableCell>
-//     <TableCell>{item.Precio}</TableCell>
-//   </TableRow>
-
-
+}
 export const insertarTrabajo = async (datos) => {
     console.log(datos)
     const { data, error } = await supabase
@@ -73,9 +60,6 @@ export const obtenerTrabajosPorFecha = async (fecha) => {
     console.log(data);
     return data;
 }
-
-
-//Actualizar trabajo (no es necesario que estén todos los campos)
 export const actualizarTrabajo = async (id, datos) =>{
     const {data, error} = await supabase
     .from('Trabajos')
@@ -87,3 +71,75 @@ export const actualizarTrabajo = async (id, datos) =>{
 
 }
 
+export const eliminarTrabajo = async (id) =>{
+    const {data, error} = await supabase
+    .from('Trabajos')
+    .delete()
+    .eq('id', id)
+    if (error) return <div>error</div>
+    console.log(data)
+    return data
+
+}
+
+//Trabajadores
+export const obtenerTrabajadores = async () => {
+    const { data, error } = await supabase
+        .from("Trabajadores")
+        .select('*')
+        
+    if (error){ 
+        throw error
+    }
+    return data
+}
+
+export const obtenerTrabajador = async (id) =>{
+    const {data, error} = await supabase
+    .from('Trabajadores')
+    .select('*')
+    .eq('id', id)
+    if (error) return <div>error</div>
+    console.log(data)
+    return data
+
+}
+
+export const insertarTrabajador = async (datos) => {
+    console.log(datos)
+    const { data, error } = await supabase
+        .from("Trabajadores")
+        .insert(datos)
+        
+    if (error) {
+        console.log(error)
+        throw error
+    
+    }
+    
+    return data
+}
+
+export const eliminarTrabajador = async (nombre) =>{
+    const {data, error} = await supabase
+    .from('Trabajadores')
+    .delete()
+    .eq('nombre', nombre)
+    if (error) throw error;
+    console.log(data)
+    return data
+
+}
+
+//la tabla trabajadores solo tendrá un campo, el nombre que tambien actuará como id
+//entonces la funcion actualizarTrabajador solo actualizará el nombre
+export const actualizarTrabajador = async (nombre, datos) =>{
+    const {data, error} = await supabase
+    .from('Trabajadores')
+    .update(datos)
+    .eq('Nombre', nombre)
+    if (error) throw error;
+    console.log(data)
+    return data
+
+}

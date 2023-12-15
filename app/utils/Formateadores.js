@@ -1,12 +1,24 @@
 
 
 export const formatearFecha = (fecha) => {
-    const date = new Date(fecha)
-    //fecha en formato local
-    const fechaLocal = date.toLocaleDateString()
-    return fechaLocal
+    // Validar si la fecha es null o no está definida
+    if (!fecha) {
+        return 'Fecha no definida'; // O devuelve una cadena vacía si prefieres: ''
+    }
 
+    // Añadir la hora "T00:00:00" para asegurar que la fecha es interpretada en la zona horaria local
+    const fechaConHora = fecha + 'T00:00:00';
+
+    // Formatear la fecha
+    const fechaFormateada = new Date(fechaConHora).toLocaleDateString('es-CO', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric'
+    });
+
+    return fechaFormateada;
 }
+
 export const formatearHora = (hora) => {
     // Validar si la hora es null o no está definida
     if (!hora) {
