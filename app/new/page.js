@@ -18,8 +18,6 @@ const New = () => {
   const [trabajador, setTrabajador] = useState("");
 
   const handleInputChange = (event) => {
-   
-
     const { name, value } = event.target;
     let newValue = value;
 
@@ -49,8 +47,6 @@ const New = () => {
       Trabajador: trabajador,
     };
 
-
-
     console.log(datosAEnviar);
 
     try {
@@ -65,11 +61,11 @@ const New = () => {
 
   return (
     <>
-
       <main className="flex flex-col items-center justify-center bg-smoke-800 text-slate-50 h-[calc(100vh-4rem)] h- dark">
         <h1 className="text-3xl font-semibold mb-2">Nuevo</h1>
         <form className="flex flex-col w-[80%] gap-2" onSubmit={handleSubmit}>
-          <Textarea
+          <Input
+            type="text"
             value={formulario.Descripcion}
             onChange={handleInputChange}
             variant="bordered"
@@ -78,14 +74,6 @@ const New = () => {
             minRows={1}
             name="Descripcion"
           />
-
-
-        <SelectTrabajadores
-        value = {trabajador}
-        setValue={setTrabajador}
-        />
-
-
 
           <Input
             type="number"
@@ -101,37 +89,36 @@ const New = () => {
                 <span className="text-default-400 text-small">$</span>
               </div>
             }
-
           />
-            <span className="text-success-600">
-                {precioMostrado}
-            </span>
-          <div className="flex gap-4 items-center">
-            <label htmlFor="fecha" className="flex flex-col">
-              Fecha
-              <input
-                type="date"
-                name="Fecha"
-                id="fecha"
-                className="mb-4 p-3 rounded-md"
-                value={formulario.Fecha}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label htmlFor="hora" className="flex flex-col">
-              Hora
-              <input
-                type="time"
-                name="Hora"
-                id="hora"
-                className="mb-4 p-3 rounded-md"
-                value={formulario.Hora}
-                onChange={handleInputChange}
-              />
-            </label>
-            <span className="text-success-600">
-              {"(vacio para usar la fecha y hora actual)"}
-            </span>
+          <span className="text-success-600">{precioMostrado}</span>
+          <div className="flex gap-10 items-center ">
+            <SelectTrabajadores value={trabajador} setValue={setTrabajador} />
+
+            <div className="flex gap-4 ">
+              <label htmlFor="fecha" className="flex flex-col -mt-1">
+                Fecha
+                <input
+                  type="date"
+                  name="Fecha"
+                  id="fecha"
+                  className="mb-4 p-3 rounded-md"
+                  value={formulario.Fecha}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label htmlFor="hora" className="flex flex-col -mt-1">
+                Hora
+                <input
+                  type="time"
+                  name="Hora"
+                  id="hora"
+                  className="mb-4 p-3 rounded-md"
+                  value={formulario.Hora}
+                  onChange={handleInputChange}
+                />
+              </label>
+
+            </div>
           </div>
 
           <Button variant="shadow" type="submit" color="danger">

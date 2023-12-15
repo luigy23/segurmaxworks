@@ -40,6 +40,7 @@ const AgendaPage = () => {
             <div>
                 <input
                     type="date"
+                    className="mb-4 p-3 rounded-md"
                     value={fechaSeleccionada}
                     onChange={handleDateChange}
                 />
