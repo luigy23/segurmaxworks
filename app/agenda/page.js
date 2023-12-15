@@ -54,7 +54,7 @@ const AgendaPage = () => {
                     trabajos.length === 0 ? <h2>No hay trabajos para hoy</h2> :
                         trabajos.map((item, index) => {
                             return (
-                                <Trabajo index={index} item={item} />
+                                <Trabajo key={index} index={index} item={item} />
                             )
                         })
                 }
