@@ -91,11 +91,11 @@ const New = () => {
             }
           />
           <span className="text-success-600">{precioMostrado}</span>
-          <div className="flex gap-10 items-center ">
+          <div className="md:flex gap-2 md:gap-10 items-center ">
             <SelectTrabajadores value={trabajador} setValue={setTrabajador} />
 
-            <div className="flex gap-4 ">
-              <label htmlFor="fecha" className="flex flex-col -mt-1">
+            <div className=" flex-col md:flex gap-4 ">
+              <label htmlFor="fecha" className="flex flex-col mt-2 md:-mt-1">
                 Fecha
                 <input
                   type="date"
@@ -106,7 +106,7 @@ const New = () => {
                   onChange={handleInputChange}
                 />
               </label>
-              <label htmlFor="hora" className="flex flex-col -mt-1">
+              <label htmlFor="hora" className="flex flex-col md:-mt-1">
                 Hora
                 <input
                   type="time"

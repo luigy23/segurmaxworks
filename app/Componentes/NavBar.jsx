@@ -11,33 +11,34 @@ import { UsersIcon } from '../Assets/Icons/UsersIcon';
 
 const NavBar = () => {
   return (
-    <Navbar  className='bg-smoke-900 dark text-slate-50 justify-center ' >
-    <NavbarContent className='w-full gap-5'  justify='center'>
+    <Navbar  className='bg-smoke-900 dark text-slate-50 justify-center    ' >
+    <NavbarContent className=' w-full gap-5'  justify='center'>
 
       <NavbarItem  >
         <Link href='/' className='link'>
         <HouseIcon/>
-          Inicio
+          <span>Inicio</span>
         </Link>
       </NavbarItem>
       <NavbarItem>
         
         <Link href='/new' className='link'>
           <NewIcon/>
-          Nuevo
+          <span>
+          Nuevo</span>
         </Link>
         
         </NavbarItem>
       <NavbarItem>
         <Link href='/agenda' className='link'>
           <CalendarICon/>
-          Agenda
+          <span>Agenda</span>
         </Link>
       </NavbarItem>
       <NavbarItem>
         <Link href='/trabajadores' className='link'>
           <UsersIcon/>
-          Trabajadores
+          <span>Trabajadores</span>
         </Link>
       </NavbarItem>
 

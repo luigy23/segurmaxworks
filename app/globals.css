@@ -15,3 +15,16 @@ h1 {
   transition-colors ease-in-out
  ;
 }
+
+/* Moviles */
+@media (max-width: 640px) {
+.link span {
+  @apply hidden;
+}
+
+.link {
+  @apply flex-col bg-success-500 text-smoke-900 rounded-lg  p-2
+  hover:bg-success-200;
+}
+
+}
