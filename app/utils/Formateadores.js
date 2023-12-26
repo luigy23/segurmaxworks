@@ -1,6 +1,8 @@
 
 
 export const formatearFecha = (fecha) => {
+
+    
     // Validar si la fecha es null o no está definida
     if (!fecha) {
         return 'Fecha no definida'; // O devuelve una cadena vacía si prefieres: ''

@@ -3,6 +3,9 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = 'https://fydlptytoyvcybdtonjn.supabase.co'
 const anonkey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5ZGxwdHl0b3l2Y3liZHRvbmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjUxNzIsImV4cCI6MjAxNjk0MTE3Mn0.1O5h_qN_ggN_K_dFc7gIZLckPUPP3fHFh2eIDzSqt0E'
 const supabase = createClient(supabaseUrl, anonkey)
+//exportamos la variable supabase para poder usarla en otros archivos
+export default supabase
+
 
 export const obtenerTrabajos = async () => {
     const { data, error } = await supabase
@@ -143,3 +146,6 @@ export const actualizarTrabajador = async (nombre, datos) =>{
     return data
 
 }
+
+
+//facturación
