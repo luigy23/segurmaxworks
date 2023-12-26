@@ -1,10 +1,31 @@
+"use client";
 import { formatearPrecio } from '@/app/utils/Formateadores'
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NuevoSaldoForm from './NuevoSaldoForm';
-const BtnSaldo = ({saldo, cargarSaldo}) => {
+import { obtenerSaldo } from '@/app/utils/Api/Caja';
+const BtnSaldo = () => {
+  const [saldo, setSaldo] = useState(0)
+
+  const cargarSaldo = async () => {
+    try {
+      const saldo = await obtenerSaldo()
+      console.log(saldo)
+      setSaldo(saldo[0].Saldo)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+
+  useEffect(() => {
+    cargarSaldo()
+  }
+  , [])
+
 
   return (
     <>
