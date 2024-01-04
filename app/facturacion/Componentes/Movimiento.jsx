@@ -1,4 +1,4 @@
-import { formatearFecha } from "@/app/utils/Formateadores";
+import { formatearFecha, formatearPrecio } from "@/app/utils/Formateadores";
 import React from "react";
 
 const Movimiento = ({ movimiento }) => {
@@ -12,6 +12,8 @@ const Movimiento = ({ movimiento }) => {
     return `${fechaFormateada} `;
   };
 
+  
+
   const estilos = {
     Ingreso: "bg-success-300",
     Egreso: "bg-red-500",
@@ -20,10 +22,13 @@ const Movimiento = ({ movimiento }) => {
   return (
     <div
      
-      className={`flex justify-between gap-2 p-3 rounded-lg cursor-pointer ${estilos[movimiento.Tipo]}`}
+      className={`flex  justify-between items-center gap-2 p-3 rounded-lg cursor-pointer ${estilos[movimiento.Tipo]}`}
     >
-      <p>{movimiento.Tipo}</p>
-      <p>${movimiento.Valor}</p>
+      <p>{movimiento.Descripcion}</p>
+    
+      <p className=
+      {(movimiento.Tipo === "Ingreso" ? "bg-success-500" : "bg-red-300")+  " text-smoke-800 rounded-3xl px-2 py-1"}>
+        {formatearPrecio(movimiento.Valor)}</p>
       <p>⌚{formatearFechaHora(movimiento.created_at)}</p>
     </div>
   );

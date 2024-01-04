@@ -2,22 +2,23 @@
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 
 import React from 'react'
-import FormIngreso from "./FormIngreso";
+import FormIngreso from "../Ingreso/FormIngreso";
+import FormEgreso from "./FormEgreso";
 
-const BtnFacturar = () => {
+const BtnGastar = () => {
 
 const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   return (
     <>
-         <Button color='success' onClick={onOpen}  >Facturar</Button>
+         <Button color='danger' onClick={onOpen}  >Gastar</Button>
          <Modal isOpen={isOpen} onOpenChange={onOpenChange} className='dark'>
             <ModalContent>
             {(onClose) => (
                 <>
-                <ModalHeader className="flex flex-col gap-1 text-slate-50">Facturar</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1 text-slate-50">Gastar</ModalHeader>
                 <ModalBody>
-                    <FormIngreso />
+                    <FormEgreso />
                 </ModalBody>
                 <ModalFooter>
     
@@ -30,4 +31,4 @@ const {isOpen, onOpen, onOpenChange} = useDisclosure();
   )
 }
 
-export default BtnFacturar
+export default BtnGastar

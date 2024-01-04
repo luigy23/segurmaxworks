@@ -3,13 +3,13 @@ import { crearMovimiento } from "@/app/utils/Api/Movimientos";
 import { Input, Button } from "@nextui-org/react";
 import React, { useState } from "react";
 
-const FormIngreso = () => {
-  const categorias = {"Trabajo":1, "Venta":2, "Otro":3}; // 
+const FormEgreso = () => {
+  const categorias = {"Pago Trabajo":1, "Compra Material":2, "Otro":3}; // 
 
-  const [ingreso, setIngreso] = useState({
+  const [egreso, setEgreso] = useState({
     Descripcion: undefined,
     Valor: undefined,
-    Tipo: "Ingreso",
+    Tipo: "Egreso",
     Categoria: 0,
 
     Trabajador: undefined,
@@ -22,43 +22,43 @@ const FormIngreso = () => {
     e.preventDefault();
 
     //validaciones
-    if (!ingreso.Descripcion) {
+    if (!egreso.Descripcion) {
       setError("Ingrese una descripcion");
       return;
     }
-    if (!ingreso.Valor) {
+    if (!egreso.Valor) {
       setError("Ingrese un valor");
       return;
     }
-    if (ingreso.Categoria === 0) {
+    if (egreso.Categoria === 0) {
       setError("Seleccione una categoria");
       return;
     }
 
-    if(ingreso.Categoria === 2 && !ingreso.Trabajador){
+    if(egreso.Categoria === 2 && !egreso.Trabajador){
       setError("Ingrese un Trabajador");
       return;
     }
 
-    if(ingreso.Categoria === 1 && ingreso.IdTrabajo == ""){
+    if(egreso.Categoria === 1 && egreso.IdTrabajo == ""){
       setError("Ingrese un id de trabajo");
       return;
     }
 
 
     setError(false);
-    console.log(ingreso);
+    console.log(egreso);
     crearIngreso();
   }
 
 
   const crearIngreso = async () => {
 
-    console.log(ingreso);
+    console.log(egreso);
     try {
-      crearMovimiento(ingreso);
+      crearMovimiento(egreso);
       alert("Ingreso creado correctamente");
-      setIngreso({
+      setEgreso({
         Descripcion: "",
         Valor: "",
         Tipo: "Ingreso",
@@ -70,7 +70,7 @@ const FormIngreso = () => {
 
     } catch (error) {
       console.log(error);
-      alert("Error al crear el ingreso");
+      alert("Error al crear el egreso");
 
     }
 
@@ -83,8 +83,8 @@ const FormIngreso = () => {
     setError(false);
 
     if (e.target.name === "Categoria") {
-      setIngreso({
-        ...ingreso,
+      setEgreso({
+        ...egreso,
         [e.target.name]: parseInt(e.target.value),
       });
     
@@ -92,16 +92,16 @@ const FormIngreso = () => {
     }
 
     if (e.target.name === "Valor") {
-      setIngreso({
-        ...ingreso,
+      setEgreso({
+        ...egreso,
         [e.target.name]: parseInt(e.target.value),
       });
     
       return;
     }
 
-    setIngreso({
-      ...ingreso,
+    setEgreso({
+      ...egreso,
       [e.target.name]: e.target.value,
     });
 
@@ -121,7 +121,7 @@ const FormIngreso = () => {
           type="text"
           label="Descripcion"
           name="Descripcion"
-          value={ingreso.Descripcion}
+          value={egreso.Descripcion}
           onChange={handleInputChange}
           variant="bordered"
           color="default"
@@ -131,7 +131,7 @@ const FormIngreso = () => {
           type="number"
           label="Valor"
           name="Valor"
-          value={ingreso.Valor}
+          value={egreso.Valor}
           onChange={handleInputChange}
           variant="bordered"
           color="default"
@@ -142,7 +142,7 @@ const FormIngreso = () => {
             name="Categoria"
             className="mb-4 p-3 rounded-md"
             onChange={handleInputChange}
-            value={ingreso.Categoria}
+            value={egreso.Categoria}
           >
             <option value="">Seleccione una categoria</option>
             {
@@ -160,31 +160,31 @@ const FormIngreso = () => {
           </select>
 
 
-        {ingreso.Categoria === 2 && (
+        {egreso.Categoria === 2 && (
           <Input
             type="text"
             label="Trabajador"
             name="Trabajador"
-           value={ingreso.Trabajador}
+           value={egreso.Trabajador}
             onChange={handleInputChange}
             variant="bordered"
             color="default"
           />
         )}
 
-        {ingreso.Categoria === 1 && (
+        {egreso.Categoria === 1 && (
           <Input
             type="text"
             label="Id Trabajo"
             name="IdTrabajo"
-           value={ingreso.IdTrabajo}
+           value={egreso.IdTrabajo}
             onChange={handleInputChange}
             variant="bordered"
             color="default"
           />
         )}
 
-        <Button variant="ghost" type="submit" color="success">
+        <Button variant="ghost" type="submit" color="danger">
           Guardar
         </Button>
         <span className="text-sm text-slate-50">{error}</span>
@@ -193,4 +193,4 @@ const FormIngreso = () => {
   );
 };
 
-export default FormIngreso;
+export default FormEgreso;
