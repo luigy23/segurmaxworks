@@ -18,6 +18,7 @@ const FacturaciónPage = () => {
   return (
     <main className="fullh pt-10 gap-7">
       <div className="flex  gap-2 p-3 items-center justify-center" >
+        <h1 className="text-2xl font-bold">Facturación</h1>
       {/* <Button color="danger" auto>Restar</Button> */}
       <BtnGastar />
       <BtnSaldo />
