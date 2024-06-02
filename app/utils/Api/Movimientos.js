@@ -20,7 +20,7 @@ export const obtenerMovimientos = async () => {
     const { data, error } = await supabase
         .from("Movimientos")
         .select('*')
-        .order('id', { ascending: false })
+        .order('Date', { ascending: false })
         .limit(10)
         
     if (error){ 
@@ -42,31 +42,9 @@ export const obtenerMovimientosPorId = async (id) => {
     return data
 }
 
-export const obtenerMovimientosPorIdTrabajo = async (idTrabajo) => {
-    const { data, error } = await supabase
-        .from("Movimientos")
-        .select('*')
-        .eq('IdTrabajo', idTrabajo)
-        .order('id', { ascending: false })
-        
-    if (error){ 
-        throw error
-    }
-    return data
-}
 
-export const obtenerMovimientosPorIdTrabajador = async (idTrabajador) => {
-    const { data, error } = await supabase
-        .from("Movimientos")
-        .select('*')
-        .eq('Trabajador', idTrabajador)
-        .order('id', { ascending: false })
-        
-    if (error){ 
-        throw error
-    }
-    return data
-}
+
+
 
 export const crearMovimiento = async (movimiento) => {
     const { data, error } = await supabase
@@ -80,15 +58,6 @@ export const crearMovimiento = async (movimiento) => {
     }
     return data
 }
-//formato para el objeto movimiento:
-// {
-//     "Valor": 10000,
-//     "Tipo": "Ingreso",
-//     "Descripcion": "Pago de trabajo",
-//     "Categoria": 1,
-//     "Trabajador": "Juan",
-//     "IdTrabajo": 1
-// }
 
 
 
