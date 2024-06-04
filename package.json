@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.1",
+    "@nextui-org/system": "^2.2.1",
+    "@nextui-org/theme": "^2.2.5",
     "@supabase/supabase-js": "^2.33.1",
     "encoding": "^0.1.13",
     "eslint": "8.48.0",
