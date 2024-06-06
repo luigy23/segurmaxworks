@@ -59,7 +59,7 @@ const Movimiento = ({ movimiento, onMovimientoUpdated }) => {
             >
                 <div className='flex justify-between items-center gap-2'>
                     <span>{movimiento.Descripcion}</span>
-                    <span>{new Date(movimiento.Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span>{movimiento.Categoria}</span>
                 </div>
                 <div className='flex justify-between items-center gap-2'>
                     <span>{formatearPrecio(movimiento.Valor)}</span>

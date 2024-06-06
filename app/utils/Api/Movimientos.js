@@ -8,12 +8,22 @@ const { default: supabase } = require("../supabase");
 //     "Valor" bigint not null,
 //     "Tipo" text null,
 //     "Descripcion" text null,
-//     "Categoria" smallint null,
-//     "Trabajador" text null,
-//     "IdTrabajo" integer null,
+//     "Categoria" text null,
+
 //     constraint Movimientos_pkey primary key (id)
 //   ) tablespace pg_default;
 
+export const insertarMovimiento = async (movimiento) => {
+    const { data, error } = await supabase
+        .from('Movimientos')
+        .insert([
+            movimiento
+        ])
+    if (error){ 
+        throw error
+    }
+    return data
+}
 
 
 export const obtenerMovimientos = async () => {
