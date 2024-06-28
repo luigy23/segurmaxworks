@@ -56,7 +56,7 @@ const MenuItem = ({ icon, label, isCenter, onClick }) => (
 const MenuItem2 = ({ icon, link, isCenter, label }) => (
   <Link
     href={link}
-    className={`flex flex-col items-center ${
+    className={`flex flex-col items-center min-w-20 ${
       isCenter ? "transform translate-y-[-20px]" : ""
     }`}
   >
