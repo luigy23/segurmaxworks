@@ -53,6 +53,19 @@ export const obtenerMovimientosPorId = async (id) => {
 }
 
 
+//movimientos con un rango de fechas
+export const obtenerMovimientosPorFecha = async (desde, hasta) => { //parametros tipo string en el formato 'YYYY-MM-DD'
+    const { data, error } = await supabase
+        .from("Movimientos")
+        .select('*')
+        .gte('Date', desde)
+        .lte('Date', hasta)
+        
+    if (error){ 
+        throw error
+    }
+    return data
+}
 
 
 

@@ -43,3 +43,15 @@ export const formatearHora = (hora) => {
 export const formatearPrecio = (precio) => {
     return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(precio)
 }
+
+
+export const groupByDate = (movements) => {
+    return movements.reduce((acc, movimiento) => {
+        const date = movimiento.Date.split('T')[0]
+        if (!acc[date]) {
+            acc[date] = []
+        }
+        acc[date].push(movimiento)
+        return acc
+    }, {})
+}
