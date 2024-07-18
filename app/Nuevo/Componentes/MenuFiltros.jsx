@@ -14,11 +14,11 @@ const MenuFiltros = () => {
                 <CalendarICon className="text-lg" />
             </Button>
             </Link>
-           
+           <Link href='/Nuevo/Filtro/Busqueda'>
             <Button className='text-smoke-600 hover:text-slate-50' variant='ghost' isIconOnly>
                 <SearchIcon className="text-lg" />
             </Button>
-           
+           </Link>
         </div>
     )
 }

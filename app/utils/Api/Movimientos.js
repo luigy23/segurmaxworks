@@ -67,7 +67,18 @@ export const obtenerMovimientosPorFecha = async (desde, hasta) => { //parametros
     return data
 }
 
-
+//movimientos por busqueda de texto
+export const obtenerMovimientosPorTexto = async (texto) => {
+    const { data, error } = await supabase
+        .from("Movimientos")
+        .select('*')
+        .ilike('Descripcion', `%${texto}%`)
+        
+    if (error){ 
+        throw error
+    }
+    return data
+}
 
 export const crearMovimiento = async (movimiento) => {
     const { data, error } = await supabase
