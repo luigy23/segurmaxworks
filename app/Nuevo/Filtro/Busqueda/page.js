@@ -6,7 +6,7 @@ import { Button, DatePicker, Input } from "@nextui-org/react";
 import MovimientosPorFecha from "../../Componentes/MovimientosPorFecha";
 import { obtenerMovimientosPorTexto } from "@/app/utils/Api/Movimientos";
 
-const pageBusqueda = () => {
+const PageBusqueda = () => {
   const [movimientos, setMovimientos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
@@ -57,4 +57,4 @@ const pageBusqueda = () => {
   );
 };
 
-export default pageBusqueda;
+export default PageBusqueda;

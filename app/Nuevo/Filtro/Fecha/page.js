@@ -8,7 +8,7 @@ import { parseDate, getLocalTimeZone } from "@internationalized/date";
 import { useDateFormatter } from "@react-aria/i18n";
 import { obtenerMovimientosPorFecha } from '@/app/utils/Api/Movimientos';
 
-const pageFiltroFecha = () => {
+const PageFiltroFecha = () => {
   const [movimientos, setMovimientos] = useState([]);
   const [desde, setDesde] = useState(null);
   const [hasta, setHasta] = useState(null);
@@ -55,4 +55,4 @@ const pageFiltroFecha = () => {
   );
 };
 
-export default pageFiltroFecha;
+export default PageFiltroFecha;
